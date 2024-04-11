@@ -121,6 +121,8 @@ var schemas = {
       hpc: { type: "string" },
       user: { type: "string" },
       password: { type: "string" },
+      allocation: { type: "string" },
+      partition: { type: "string" },
     },
     required: ["jupyterhubApiToken"],
   },
