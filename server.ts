@@ -910,6 +910,20 @@ app.post("/job", async function (req, res) {
     res.status(401).json({ error: "unrecognized hpc", message: null });
     return;
   }
+
+  switch (hpcName) {
+    case "keeling_community": {}
+    case "expanse_community": {
+      hpc["init_sbatch_options"].push("#SBATCH --partition=shared");
+    }
+    case "bridges_community_gpu": {
+      hpc["init_sbatch_options"].push("#SBATCH --partition=GPU-shared");
+    }
+    case "anvil_community": {
+      hpc["init_sbatch_options"].push("#SBATCH --partition=shared");
+    }
+  }
+
   // check if the user can use the HPC
   var allowedOnHPC = Helper.canAccessHPC(res.locals.username, hpcName);
   console.log(allowedOnHPC);
