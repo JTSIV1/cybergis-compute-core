@@ -79,6 +79,7 @@ ${
 }
 ${config.gpus_per_task ? `#SBATCH --gpus-per-task=${config.gpus_per_task}` : ""}
 ${config.partition ? `#SBATCH --partition=${config.partition}` : ""}
+${config.allocation ? `#SBATCH -A << ${config.allocation} >>` : ""}
 ${this.getSBatchTagsFromArray("mail-type", config.mail_type)}
 ${this.getSBatchTagsFromArray("mail-user", config.mail_user)}
 module purge
