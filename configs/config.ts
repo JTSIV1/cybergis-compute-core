@@ -31,6 +31,8 @@ for (var i in rawHpc) {
       globus: undefined,
       mount: {},
       slurm_input_rules: {},
+      allocation: undefined,
+      partition: undefined
     },
     JSON.parse(JSON.stringify(rawHpc[i]))
   );
