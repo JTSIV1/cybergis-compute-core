@@ -33,7 +33,9 @@
       "/data/cigi/scratch/cigi-gisolve/compute_shared": "/compute_shared"
     },
     "allowlist" : [],
-    "denylist": []
+    "denylist": [],
+    "allocation": null,
+    "partition": null
   },
   "expanse_community": {
     "ip": "login.expanse.sdsc.edu",
@@ -70,16 +72,16 @@
     ],
     "init_sbatch_options": [
       "#SBATCH --constraint=lustre",
-      "#SBATCH --partition=shared",
-      "#SBATCH --nodes=1",
-      "#SBATCH --account=TG-EAR190007"
+      "#SBATCH --nodes=1"
     ],
     "xsede_job_log_credential": {
       "xsederesourcename": "expanse.sdsc.xsede.org",
       "apikey": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     },
     "allowlist" : [],
-    "denylist": []
+    "denylist": [],
+    "allocation": "TG-EAR190007",
+    "partition": "shared"
   },
   "bridges_community_gpu": {
     "ip": "bridges2.psc.edu",
@@ -109,9 +111,11 @@
       "export tmp_path=\"/tmp/cvmfs-$(openssl rand -hex 12)\"",
       "mkdir $tmp_path"
     ],
-    "init_sbatch_options": ["#SBATCH --partition=GPU-shared"],
+    "init_sbatch_options": [],
     "allowlist" : [],
-    "denylist": []
+    "denylist": [],
+    "allocation": null,
+    "partition": "GPU-shared"
   },
   "anvil_community": {
     "ip": "anvil.rcac.purdue.edu",
@@ -147,8 +151,10 @@
       "export tmp_path=\"/tmp/cvmfs-$(openssl rand -hex 12)\"",
       "mkdir $tmp_path"
     ],
-    "init_sbatch_options": ["#SBATCH --partition=shared", "#SBATCH --nodes=1"],
+    "init_sbatch_options": ["#SBATCH --nodes=1"],
     "allowlist" : [],
-    "denylist": []
+    "denylist": [],
+    "allocation": null,
+    "partition": "shared"
   }
 }
