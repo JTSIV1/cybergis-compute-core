@@ -211,6 +211,8 @@ export interface hpcConfig {
   xsede_job_log_credential: XSEDEJobLogCredential;
   allowlist: string[];
   denylist: string[];
+  allocation?: string;
+  partition?: string;
 }
 
 export interface XSEDEJobLogCredential {
