@@ -35,6 +35,7 @@ class SlurmConnector extends BaseConnector {
    */
   prepare(cmd: string, config: slurm) {
     // prepare sbatch script
+    Helper.nullGuard(this.maintainer);
     const hpc = hpcConfigMap[this.maintainer.job.hpc];
     config = Object.assign(
       {
