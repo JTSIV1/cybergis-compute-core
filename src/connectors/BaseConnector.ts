@@ -17,7 +17,7 @@ import connectionPool from "./ConnectionPool";
 class BaseConnector {
 
   /** parent pointer **/
-  public maintainer: BaseMaintainer | null;
+  public maintainer: BaseMaintainer;
 
   /** properties **/
   public jobId: string | null;
