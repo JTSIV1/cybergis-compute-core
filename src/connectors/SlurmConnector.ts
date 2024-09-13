@@ -35,7 +35,7 @@ class SlurmConnector extends BaseConnector {
    */
   prepare(cmd: string, config: slurm) {
     // prepare sbatch script
-  const hpc = hpcConfigMap[this.maintainer.job.hpc];
+    const hpc = hpcConfigMap[this.maintainer.job.hpc];
     config = Object.assign(
       {
         time: "01:00:00",
@@ -46,11 +46,11 @@ class SlurmConnector extends BaseConnector {
     );
 
     if (config.allocation == null) {
-      config.allocation = hpc["allocation"];
+      config.allocation = hpc.allocation;
     }
 
     if (config.partition == null) {
-      config.partition = hpc["partition"];
+      config.partition = hpc.partition;
     }
 
     let modules = "";
