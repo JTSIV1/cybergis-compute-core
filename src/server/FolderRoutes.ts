@@ -17,6 +17,10 @@ import type {
 } from "../utils/types";
 
 import { authMiddleWare, requestErrors, validator, schemas, prepareDataForDB, globusTaskList } from "./ServerUtil";
+import Busboy from 'busboy';
+import type { BusboyConfig } from 'busboy';
+import * as fs from "fs";
+import * as os from "os";
 
 const folderRouter = express.Router();
 
@@ -341,6 +345,50 @@ folderRouter.get(
         });
       return;
     }
+  }
+);
+
+// const storage = multer.memoryStorage();
+// const upload = multer({ storage: storage }).single("file");
+const busboy = require('busboy');
+
+folderRouter.post(
+  "/:folderId/uploadFile",
+  async function (req, res) {
+    const bb = busboy({ headers: req.headers });
+    const uploadPath = path.join(__dirname, 'uploads');
+    console.log(`Upload path: ${uploadPath}`);
+    
+    if (!fs.existsSync(uploadPath)) {
+        fs.mkdirSync(uploadPath);
+    }
+
+    bb.on('file', (fieldname: string, file: NodeJS.ReadableStream, filename: string, encoding: string, mimetype: string) => {
+        console.log(`Received file: ${filename}`);
+        const saveTo = path.join(uploadPath, filename);
+        file.pipe(fs.createWriteStream(saveTo));
+    });
+
+    bb.on('finish', () => {
+        res.writeHead(200, { 'Connection': 'close' });
+        res.end("File upload complete");
+    });
+
+    bb.on('error', (err: any) => {
+        console.error('Busboy error:', err);
+        res.status(500).send({ error: 'File upload failed' });
+    });
+
+    req.pipe(bb);
+
+    req.on('aborted', () => {
+        bb.destroy();
+    });
+
+    req.on('error', (err) => {
+      console.error('Request stream error:', err);
+      res.status(500).send({ error: 'Request stream failed' });
+    });
   }
 );
 
